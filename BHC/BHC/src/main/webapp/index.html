@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <link rel="stylesheet" href="./css/styles.css"></link>
+  <script src="./js/scripts.js"></script>
+  <title>Beartooth Hiking Company</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+			function sendRequest(url) {
+				// get form parameters and translate them to a JSON object
+				// that is mapped to a JSON/Java object in service
+				var viewArr = $("#myForm").serializeArray();
+			  	var view = {};
+			  	// need to convert { name:"VarName", value:"ValName"} to {VarName:"ValName"}
+			  	for (var i in viewArr) {
+			    	view[viewArr[i].name] = viewArr[i].value;
+			  	}
+                          
+                // call back to service with post containing JSON data and on
+                // return process results back into page          
+                $.ajax({
+                    type:"POST",
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: JSON.stringify(view),
+                    url: url,
+                    // you will want to update success function to get specific
+                    // JSON data fields for output back to the original HTML page
+                    success: function(data) {
+						// this sets the html content of the html object
+						// with id of reponseArea.
+						try {
+							var message = data.text;
+						} catch {
+							var message = "Error. Response from the server was incorrectly formatted."
+						} 
+						$("#responseArea").html("<b>" + message + "</b>");
+                 	}
+                });
+			};	
+		</script>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000EE"
+vlink="#551A8B" alink="#FF0000" >
+
+<div id="header" class= "main-background">
+	<center style="padding: 20px;">
+		<h1 >Beartooth Hiking Company (BHC)</h1> 
+		<p class ="sub_title">You'll get to love the BHC</p> 
+	</center>
+</div>
+
+<div id ="introduction" class="container-fluid">
+	<table class="introduction_image">
+	  <tr>
+	    <td>
+	    	<img src="./images/BeartoothView.jpg" width="350" height="220"/>
+	    	<h3>Enjoy your freedom </h3>
+	    </td>
+	    <td>
+	    	<img src="./images/Camping01.gif" width="350" height="220"/>
+	    	<h3>Find Outer peace </h3>
+	    </td>
+	    <td>
+	    	<img src="./images/clay_butte_06.jpg" width="350" height="220" />
+	    	<h3>Find your trail </h3>
+	    </td>
+	  <tr>
+	</table>
+</div>
+
+<div id="hike options" class="container-fluid bg-grey">
+	<h2 align = "center">Hike Options </h2>
+	<ol class="hike_options">
+		<li>Gardiner Lake</u></li>
+		<li>Helleroaring Plateau</li>
+		<li>The Beaten Path</li>
+	</ol>          
+</div>
+
+<div id="tour options" class ="container-fluid">
+	<center>
+		<h2>Tour Options</h2>
+		<table border class ="table_size">
+			<thead>
+	            <tr class ="tr_size">
+	                <th>Type of Hiking tours</th>
+	                <th>Duration (day)</th>
+	                <th>Difficulty</th>
+	                <th>Pricing Per Day</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr class ="tr_size">
+	                <th>Gardiner Lake</th>
+	                <td>3 or 5</td>
+	                <td>Intermediate</td>
+	                <td>$40</td>
+	            </tr>
+	            <tr class ="tr_size">
+	                <th>Hellroaring Plateau</th>
+	                <td>2, 3, or 4</td>
+	                <td>Easy</td>
+	                <td>$35</td>
+	            </tr>
+	            <tr class ="tr_size">
+	                <th>The Beaten Path</th>
+	                <td>5 or 7</td>
+	                <td>Difficult</td>
+	                <td>$46</td>
+	            </tr>
+	        </tbody>
+	        <tfoot>
+	            <tr class ="tr_size">
+	                <td colspan=4>Note: All hikes have a 50% surcharge for Sat/Sun hikes.</td>
+	            </tr>
+	        </tfoot>
+	    </table>
+	</center>
+</div>
+
+<div id="reservation" class="container-fluid bg-grey">
+
+	<center>
+
+	<!-- http://localhost:8080-->
+	<!-- https://web1.jhuep.com:443 -->
+	<form id="myForm">
+			<h2>Make a Reservation</h2>
+			<ul>
+			   	<li>
+			   		<label for="date">Start Date: </label>
+					<input
+			            type="date" id="date" name="date" class="form-control" min="2021-01-01" max="2025-12-31" onchange="validDate()">
+			   	</li>
+			   	<li>
+			   		<label for="party">Party Size: </label>
+			   		<input type="number" id="party" name="party" min="1" max="10" onchange="checkPartySize()">
+			   	</li>
+			    <li>
+					<label for="tour">Tour: </label>
+					<select name="tour" id="tour" onchange="hike_check()">
+						<option value="">Choose Your Hike</option>
+			        </select>
+			    </li>
+			   	<li>
+			   		<label for="duration">Duration: </label>
+					<select name="duration" id="duration">
+			            <option value ="">Choose Your Duration</option>
+			        </select>
+			   	</li>
+		    </ul>
+		<button type="button" onclick="sendRequest('webresources/bhc/quoterate')" class="btn btn-primary btn-lg">Get Rate</button>
+	</form>
+	<h3 id = "responseArea"></h3>
+	</center>
+</div>
+
+<!-- <div id="responseArea"><pre></pre>
+<center><br>test</br></center>
+</div> -->
+
+<div id ="more-info" class="container-fluid">
+	<center >
+	<h2>More Information</h2>
+		<table class="introduction_image">
+		  <tr>
+		    <td>
+					<a href ="https://wilderness.net/">
+						<img src="./images/wilderness_connect.jpg" width="400" height="270">
+					</a>
+					<p><strong>Wilderness connect</strong></p>
+		    </td>
+		    <td>
+					<a href = "https://www.fs.usda.gov/recarea/shoshone/recarea/?recid=80899">
+						<img src="./images/us_forest_service.jpg" width="350" height="300">
+					</a>
+					<p><strong>US Forest Service</strong></p>
+		    </td>
+		  <tr>
+		</table>
+	</center>
+</div>
+
+
+</body>
+</html>

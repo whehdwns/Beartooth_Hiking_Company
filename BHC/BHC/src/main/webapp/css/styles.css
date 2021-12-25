@@ -1,0 +1,63 @@
+.main-background{
+  text-align: center;
+  height: 275px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-image: url("../images/Beartooth002-01.jpg");
+  padding: 40px 40px;
+}
+
+.sub_title{
+  color:white;
+  font-size: 150%;
+}
+
+.container-fluid {
+  padding: 40px 40px;
+}
+
+.bg-grey {
+    background-color: #f6f6f6;
+}
+
+.introduction_image{
+  margin-left: auto; 
+  margin-right: auto; 
+  text-align: center; 
+  width: 100%;
+}
+
+.hike_options{
+  display:table; 
+  margin-left: auto; 
+  margin-right: auto; 
+  font-size: 14pt;
+}
+
+.table_size{
+  text-align:center; 
+  width: 70%;
+}
+
+.tr_size{
+  height: 40px;
+}
+
+#reservation ul {
+    display: table;
+}
+
+#reservation li {
+    display: table-row;
+}
+
+#reservation label, input,select {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  display: table-cell;
+}
+
+.thumbnail_size{
+  float: left;
+  width: 50%;
+}
